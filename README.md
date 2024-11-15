@@ -20,6 +20,3 @@ This is a Laravel project that uses SQLite and Vite for asset bundling. Follow t
     ```powershell
     composer install
 
-    
-
-
