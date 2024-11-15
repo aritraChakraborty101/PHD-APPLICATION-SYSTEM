@@ -39,7 +39,7 @@ This is a Laravel project that uses SQLite and Vite for asset bundling. Follow t
 
             ```powershell
             Remove-Item -Recurse -Force node_modules, package-lock.json
-            npm cache clean --force
+            npm cache clean --force```
         </li>
         <li></li>
     </ul>
