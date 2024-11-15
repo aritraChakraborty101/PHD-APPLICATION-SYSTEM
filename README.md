@@ -1,4 +1,4 @@
-# Project Name
+# Phd Application System
 
 This is a Laravel project that uses SQLite and Vite for asset bundling. Follow these steps to set up and run the project locally on Windows.
 
@@ -10,29 +10,50 @@ This is a Laravel project that uses SQLite and Vite for asset bundling. Follow t
 - Ensure ports 8000 and 5173 are available
 
 ## Installation Steps
+ 
+ 
+ 1. **Clone the Repository**
 
-1. **Clone the Repository**
-   ```powershell
-   git clone <repository-url>
-   cd <repository-folder>
+- Clone the repository and navigate into the project directory:
 
-2. **Install PHP Dependencies**
-    ```powershell
+    ```sh
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
+
+ 2. **Install PHP Dependencies**
+
+- Install the required PHP dependencies using Composer:
+
+    ```sh
     composer install
+    ```
 
-3. **Set Up the Database**
-    ```powershell
-    php artisan migrate  
+ 3. **Set Up Environment Configuration**
 
-4. **Generate Application Key**
-    ```powershell
+- Copy the `.env.example` file to `.env` and modify the necessary environment settings:
+
+    ```sh
+    cp .env.example .env
+    ```
+
+ 4. **Generate Application Key**
+
+- Generate the Laravel application key:
+
+    ```sh
     php artisan key:generate
+    ```
 
-5. **Link Storage**
-    ```powershell
-    php artisan storage:link 
+ 5. **Run Database Migrations**
 
-6. **Install Front-End Dependencies**
+- Run the database migrations to set up the database schema:
+
+    ```sh
+    php artisan migrate
+    ```
+
+ 6. **Install Front-End Dependencies**
 
 - Remove `node_modules` and `package-lock.json` if they exist, then clear the npm cache:
 
@@ -47,4 +68,42 @@ This is a Laravel project that uses SQLite and Vite for asset bundling. Follow t
     npm install
     ```
 
-## 7. Build Assets
+ 7. **Build Assets**
+
+- Run a production build to generate assets in `public/build`:
+
+    ```powershell
+    npm run build
+    ```
+
+ 8. **Set APP_URL in Environment File**
+
+- Open the `.env` file and ensure the `APP_URL` is set as follows:
+
+    ```plaintext
+    APP_URL=http://localhost
+    ```
+
+ 9. **Clear Laravel Caches**
+
+- Clear Laravel caches to ensure configuration is up-to-date:
+
+    ```powershell
+    php artisan config:clear
+    php artisan view:clear
+    php artisan route:clear
+    php artisan cache:clear
+    ```
+
+ 10. **Start the Laravel Development Server**
+
+- Start the Laravel development server and open your application:
+
+    ```sh
+    php artisan serve
+    ```
+
+- In a new terminal, start Vite’s development server:
+    ```sh
+    npm run dev
+    ```
