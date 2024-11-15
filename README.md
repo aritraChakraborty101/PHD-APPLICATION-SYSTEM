@@ -16,4 +16,10 @@ This is a Laravel project that uses SQLite and Vite for asset bundling. Follow t
    git clone <repository-url>
    cd <repository-folder>
 
-   
+2. **Install PHP Dependencies**
+    ```powershell
+    composer install
+
+    
+
+
