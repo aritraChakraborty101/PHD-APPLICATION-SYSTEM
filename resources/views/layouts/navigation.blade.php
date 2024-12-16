@@ -30,7 +30,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Update Profile') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
