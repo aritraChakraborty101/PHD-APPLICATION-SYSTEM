@@ -10,6 +10,11 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if (Auth::user()->is_student)
+                    <x-nav-link :href="route('applicants.create')" :active="request()->routeIs('applicants.create')">
+                        {{ __('Create Applicant') }}
+                    </x-nav-link>
+                    @endif
                 </div>
             </div>
 
