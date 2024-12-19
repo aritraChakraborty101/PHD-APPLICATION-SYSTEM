@@ -14,7 +14,22 @@
                     <x-nav-link :href="route('applicants.create')" :active="request()->routeIs('applicants.create')">
                         {{ __('Create Applicant') }}
                     </x-nav-link>
+                            
+        <!-- Check if the user has already created an applicant -->
+         <!--NEW LINE ADDED -->
+        @if (!Auth::user()->applicants->isEmpty())
+            @php
+                $applicant = Auth::user()->applicants->first();
+            @endphp
+            <x-nav-link :href="route('applicants.edit', ['id' => $applicant->id])" :active="request()->routeIs('applicants.edit')">
+                {{ __('Edit Applicant') }}
+            </x-nav-link>
+        @endif
+<!--NEW LINE ADDED -->
+               
                     @endif
+
+                    
                 </div>
             </div>
 
