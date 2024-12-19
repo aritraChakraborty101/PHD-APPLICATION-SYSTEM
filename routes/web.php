@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\applicantcontroller;
+use App\Http\Controllers\FacultyController;
 use Illuminate\Support\Facades\Route;
 
 // Welcome Page
@@ -46,4 +47,28 @@ Route::middleware('auth')->prefix('applicants')->group(function () {
 
     // Delete an applicant
     Route::delete('/{id}', [applicantcontroller::class, 'destroy'])->name('applicants.destroy');
+});
+
+// Faculty Routes
+Route::middleware('auth')->prefix('faculties')->group(function () {
+    // List all faculties
+    Route::get('/', [FacultyController::class, 'index'])->name('faculties.index');
+
+    // Show the form to create a new faculty
+    Route::get('/create', [FacultyController::class, 'create'])->name('faculties.create');
+
+    // Store a newly created faculty
+    Route::post('/', [FacultyController::class, 'store'])->name('faculties.store');
+
+    // Show a single faculty
+    Route::get('/{id}', [FacultyController::class, 'show'])->name('faculties.show');
+
+    // Show the form to edit a faculty
+    Route::get('/{id}/edit', [FacultyController::class, 'edit'])->name('faculties.edit');
+
+    // Update an existing faculty
+    Route::put('/{id}', [FacultyController::class, 'update'])->name('faculties.update');
+
+    // Delete a faculty
+    Route::delete('/{id}', [FacultyController::class, 'destroy'])->name('faculties.destroy');
 });
