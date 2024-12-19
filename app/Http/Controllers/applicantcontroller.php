@@ -38,7 +38,6 @@ class applicantcontroller extends Controller
         $user = Auth::user();
 
         if ($user->is_student && !Applicant::where('user_id', $user->id)->exists()) {
-
             Applicant::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -48,7 +47,7 @@ class applicantcontroller extends Controller
                 'user_id' => $user->id,
             ]);
 
-            return redirect()->route('applicants.index')->with('success', 'Applicant created successfully!');
+            return redirect()->route('dashboard')->with('success', 'Applicant created successfully!');
         } else {
             return redirect()->back()->with('error', 'Only students can create applications.');
         }
@@ -108,7 +107,7 @@ class applicantcontroller extends Controller
 
         $applicants = $query->paginate(10);
 
-        return response()->json($applicants);
+        return view('applicants.index', compact('applicants'));
     }
 
     // Single Applicant
@@ -116,7 +115,7 @@ class applicantcontroller extends Controller
     {
         $applicant = Applicant::findOrFail($id);
 
-        return response()->json($applicant);
+        return view('applicants.show', compact('applicant'));
     }
 
     // Delete Applicant

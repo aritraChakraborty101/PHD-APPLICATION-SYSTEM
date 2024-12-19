@@ -33,7 +33,7 @@ Route::middleware('auth')->prefix('applicants')->group(function () {
     Route::get('/create', [applicantcontroller::class, 'create'])->name('applicants.create');
 
     // Store a newly created applicant
-    Route::post('/', [applicantcontroller::class, 'store'])->name('applicants.store');
+    // Route::post('/', [applicantcontroller::class, 'store'])->name('applicants.store');
 
     // Show a single applicant
     Route::get('/{id}', [applicantcontroller::class, 'show'])->name('applicants.show');
