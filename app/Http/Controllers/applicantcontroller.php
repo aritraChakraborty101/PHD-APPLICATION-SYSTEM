@@ -38,7 +38,7 @@ class applicantcontroller extends Controller
         $user = Auth::user();
 
         if ($user->is_student) {
-            
+
             Applicant::create([
                 'name' => $request->name,
                 'email' => $request->email,
