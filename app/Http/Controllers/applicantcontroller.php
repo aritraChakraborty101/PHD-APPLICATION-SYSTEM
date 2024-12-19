@@ -14,12 +14,17 @@ class applicantcontroller extends Controller
     // Show the form to create a new applicant
     public function create()
     {
+        $user = Auth::user();
+
+        // Check if the user already has an applicant
+        
+
         return view('applicants.create');
     }
 
     // Other methods like index, store, etc.
 
-    //create applicant
+    //create applicant [[[store method]]]
     public function store(Request $request)
     {
         $request->validate([
@@ -31,7 +36,9 @@ class applicantcontroller extends Controller
         ]);
 
         $user = Auth::user();
-        if ($user->is_student && !Applicant::where('user_id', $user->id)->exists()) {
+
+        if ($user->is_student) {
+
             Applicant::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -47,22 +54,40 @@ class applicantcontroller extends Controller
         }
     }
 
-    // Edit Applicant
+    // Edit and Update Applicant
+    public function edit($id)
+    {
+        $applicant = Applicant::findOrFail($id);
+
+        // Ensure that only the user who created the application can edit it
+        if (Auth::user()->id !== $applicant->user_id) {
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to edit this applicant.');
+        }
+
+        return view('applicants.edit', compact('applicant'));
+    }
+
     public function update(Request $request, $id)
     {
         $applicant = Applicant::findOrFail($id);
 
-        $validated = $request->validate([
-            'name' => 'nullable|string|max:255',
-            'email' => 'nullable|email|unique:applicants,email,' . $applicant->id,
+        // Ensure that only the user who created the application can update it
+        if (Auth::user()->id !== $applicant->user_id) {
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to update this applicant.');
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:applicants,email,' . $applicant->id,
             'phone' => 'nullable|string|max:15',
             'address' => 'nullable|string',
             'academic_details' => 'nullable|string',
         ]);
 
-        $applicant->update($validated);
+        $applicant->update($request->all());
 
-        return response()->json(['message' => 'Applicant updated successfully', 'data' => $applicant]);
+        return redirect()->route('applicants.edit', ['id' => $applicant->id])
+                         ->with('success', 'Applicant updated successfully!');
     }
 
     // All Applicants
