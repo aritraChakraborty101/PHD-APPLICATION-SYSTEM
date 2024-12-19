@@ -37,7 +37,7 @@ class applicantcontroller extends Controller
 
         $user = Auth::user();
 
-        if ($user->is_student) {
+        if ($user->is_student && !Applicant::where('user_id', $user->id)->exists()) {
 
             Applicant::create([
                 'name' => $request->name,
