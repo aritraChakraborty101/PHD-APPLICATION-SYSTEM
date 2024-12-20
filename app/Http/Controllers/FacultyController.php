@@ -95,6 +95,7 @@ class FacultyController extends Controller
     public function index(Request $request)
     {
         $query = Faculty::query();
+        
 
         if ($request->has('search')) {
             $search = $request->input('search');
@@ -109,7 +110,7 @@ class FacultyController extends Controller
 
         $faculties = $query->paginate(10);
 
-        return response()->json($faculties);
+        return view('faculties.index', compact('faculties'));
     }
 
     // Display the specified faculty
@@ -117,7 +118,7 @@ class FacultyController extends Controller
     {
         $faculty = Faculty::findOrFail($id);
 
-        return response()->json($faculty);
+        return view('faculties.show', compact('faculty'));
     }
 
     // Remove the specified faculty from storage

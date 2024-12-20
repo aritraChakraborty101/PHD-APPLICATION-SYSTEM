@@ -1,63 +1,49 @@
-<!-- resources/views/faculties/index.blade.php -->
-
 <x-app-layout>
+    <!-- Header Slot -->
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('All Faculties') }}
+            {{ __('Show All Faculties') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <a href="{{ route('faculties.create') }}" class="btn btn-primary mb-3">Create New Faculty</a>
+    <!-- Main Content -->
+    <div class="container mx-auto px-4">
+        <h1 class="text-2xl font-bold mb-4">Faculties</h1>
 
-                    <form method="GET" action="{{ route('faculties.index') }}" class="mb-3">
-                        <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="Search by name or email" value="{{ request('search') }}">
-                            <button type="submit" class="btn btn-secondary">Search</button>
-                        </div>
-                    </form>
+        <form method="GET" action="{{ route('faculties.index') }}">
+            <input type="text" name="search" placeholder="Search..." value="{{ request('search') }}" class="border p-2">
+            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Search</button>
+        </form>
 
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Department</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($faculties as $faculty)
-                                <tr>
-                                    <td>{{ $faculty->name }}</td>
-                                    <td>{{ $faculty->email }}</td>
-                                    <td>{{ $faculty->phone }}</td>
-                                    <td>{{ $faculty->department }}</td>
-                                    <td>
-                                        <a href="{{ route('faculties.show', $faculty->id) }}" class="btn btn-info btn-sm">View</a>
-                                        <a href="{{ route('faculties.edit', $faculty->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('faculties.destroy', $faculty->id) }}" method="POST" style="display:inline-block;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5">No faculties found.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+        <table class="table-auto w-full mt-4">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2">Name</th>
+                    <th class="px-4 py-2">Email</th>
+                    <th class="px-4 py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($faculties as $faculty)
+                    <tr>
+                        <td class="border px-4 py-2">
+                            <a href="{{ route('faculties.show', $faculty->id) }}" class="text-blue-500 hover:underline">
+                                {{ $faculty->name }}
+                            </a>
+                        </td>
+                        <td class="border px-4 py-2">{{ $faculty->email }}</td>
+                        <td class="border px-4 py-2">
+                            <a href="{{ route('faculties.show', $faculty->id) }}" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-                    {{ $faculties->links() }}
-                </div>
-            </div>
+        <div class="mt-4">
+            {{ $faculties->links() }}
         </div>
     </div>
 </x-app-layout>

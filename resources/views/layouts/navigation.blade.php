@@ -9,25 +9,36 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @if (Auth::user()->is_student)
-                    <x-nav-link :href="route('applicants.create')" :active="request()->routeIs('applicants.create')">
-                        {{ __('Create Applicant') }}
-                    </x-nav-link>
-                            
-        <!-- Check if the user has already created an applicant -->
-         <!--NEW LINE ADDED -->
-        @if (!Auth::user()->applicants->isEmpty())
-            @php
-                $applicant = Auth::user()->applicants->first();
-            @endphp
-            <x-nav-link :href="route('applicants.edit', ['id' => $applicant->id])" :active="request()->routeIs('applicants.edit')">
-                {{ __('Edit Applicant') }}
-            </x-nav-link>
-        @endif
-<!--NEW LINE ADDED -->
-               
+                        <x-nav-link :href="route('applicants.create')" :active="request()->routeIs('applicants.create')">
+                            {{ __('Create Applicant') }}
+                        </x-nav-link>
+                        <!-- Check if the user has already created an applicant -->
+                        <!--NEW LINE ADDED -->
+                        @if (!Auth::user()->applicants->isEmpty())
+                            @php
+                                $applicant = Auth::user()->applicants->first();
+                            @endphp
+                            <x-nav-link :href="route('applicants.edit', ['id' => $applicant->id])" :active="request()->routeIs('applicants.edit')">
+                                {{ __('Edit Applicant') }}
+                            </x-nav-link>
+                        @endif
+                    @endif
+                    <!--NEW LINE ADDED -->
+                    @if (!Auth::user()->is_student)
+                        <x-nav-link :href="route('faculties.create')" :active="request()->routeIs('faculties.create')">
+                            {{ __('Create Faculty') }}
+                        </x-nav-link>
+                        <!-- Check if the user has already created a faculty entry -->
+                        @if (!Auth::user()->faculties->isEmpty())
+                            @php
+                                $faculty = Auth::user()->faculties->first();
+                            @endphp
+                            <x-nav-link :href="route('faculties.edit', ['id' => $faculty->id])" :active="request()->routeIs('faculties.edit')">
+                                {{ __('Edit Faculty') }}
+                            </x-nav-link>
+                        @endif
                     @endif
 
-                    
                 </div>
             </div>
 
@@ -52,6 +63,9 @@
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('applicants.index')">
                                 {{ __('Show Applicants') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('faculties.index')">
+                                {{ __('Show Faculties') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
