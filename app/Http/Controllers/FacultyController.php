@@ -21,7 +21,7 @@ class FacultyController extends Controller
                              ->with('error', 'You have already created a faculty record. You can edit it.');
         }
 
-        return view('faculties.create');
+        return view('Faculties.create');
     }
 
     // Store a newly created faculty in storage
@@ -64,7 +64,7 @@ class FacultyController extends Controller
             return redirect()->route('dashboard')->with('error', 'You do not have permission to edit this faculty record.');
         }
 
-        return view('faculties.edit', compact('faculty'));
+        return view('Faculties.edit', compact('faculty'));
     }
 
     // Update the specified faculty in storage
@@ -110,7 +110,7 @@ class FacultyController extends Controller
 
         $faculties = $query->paginate(10);
 
-        return view('faculties.index', compact('faculties'));
+        return view('Faculties.index', compact('faculties'));
     }
 
     // Display the specified faculty
@@ -118,7 +118,7 @@ class FacultyController extends Controller
     {
         $faculty = Faculty::findOrFail($id);
 
-        return view('faculties.show', compact('faculty'));
+        return view('Faculties.show', compact('faculty'));
     }
 
     // Remove the specified faculty from storage

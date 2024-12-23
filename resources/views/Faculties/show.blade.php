@@ -28,8 +28,8 @@
                         </div>
 
                         <div>
-                            <label for="address" class="block text-gray-700 font-medium">Address</label>
-                            <p id="address" class="border border-gray-300 rounded-md w-full px-3 py-2">{{ $faculty->address }}</p>
+                            <label for="research_interests" class="block text-gray-700 font-medium">Research Interest</label>
+                            <p id="research_interests" class="border border-gray-300 rounded-md w-full px-3 py-2">{{ $faculty->research_interests }}</p>
                         </div>
 
                         <div>
