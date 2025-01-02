@@ -8,6 +8,9 @@ use App\Models\Faculty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\PhdOpening;
+use App\Models\Application;
+
 class FacultyController extends Controller
 {
     // Show the form to create a new faculty

@@ -3,7 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\applicantcontroller;
 use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\ApplicationController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PhdOpeningController;
+
+
 
 // Welcome Page
 Route::get('/', function () {
@@ -71,4 +75,46 @@ Route::middleware('auth')->prefix('faculties')->group(function () {
 
     // Delete a faculty
     Route::delete('/{id}', [FacultyController::class, 'destroy'])->name('faculties.destroy');
+    //asdsadasdasdas
+    });
+
+
+// PhD Opening Routes
+Route::middleware('auth')->prefix('phd_openings')->group(function () {
+    // List all PhD openings
+    Route::get('/', [PhdOpeningController::class, 'index'])->name('phd_openings.index');
+
+    // Show the form to create a new PhD opening
+    Route::get('/create', [PhdOpeningController::class, 'create'])->name('phd_openings.create');
+
+    // Store a newly created PhD opening
+    Route::post('/', [PhdOpeningController::class, 'store'])->name('phd_openings.store');
+
+    // Show a single PhD opening
+    Route::get('/{id}', [PhdOpeningController::class, 'show'])->name('phd_openings.show');
+
+    // Show the form to edit a PhD opening
+    Route::get('/{id}/edit', [PhdOpeningController::class, 'edit'])->name('phd_openings.edit');
+
+    // Update an existing PhD opening
+    Route::put('/{id}', [PhdOpeningController::class, 'update'])->name('phd_openings.update');
+
+    // Delete a PhD opening
+    Route::delete('/{id}', [PhdOpeningController::class, 'destroy'])->name('phd_openings.destroy');
 });
+// Application Routes
+// Application Routes
+// routes/web.php
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::resource('phd_openings', PhdOpeningController::class)->only(['index', 'create', 'store']);
+    Route::get('applications', [ApplicationController::class, 'index'])->name('applications.index');
+    Route::get('applications/{id}', [ApplicationController::class, 'show'])->name('applications.show');
+    Route::post('phd_openings/{phdOpeningId}/apply', [ApplicationController::class, 'apply'])->name('applications.apply');
+    Route::put('applications/{id}/accept', [ApplicationController::class, 'accept'])->name('applications.accept');
+    Route::put('applications/{id}/reject', [ApplicationController::class, 'reject'])->name('applications.reject');
+});
+
+
