@@ -3,6 +3,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Faculty;
 use App\Models\Application;
 use App\Models\PhdOpening;
 use Illuminate\Http\Request;
@@ -27,7 +29,22 @@ class ApplicationController extends Controller
 
     public function index()
     {
-        $applications = Auth::user()->applications;
+
+        // User id 
+        $user_id = Auth::id();
+        // If the user is a student show only their applications
+        if (Auth::user()->is_student) {
+            $applications = Auth::user()->applications;
+        }
+
+        // If the user is a faculty show only the applications for their PhD openings
+        if (!Auth::user()->is_student) {
+            // get the application that has same user_id as phd_opening_id
+            $applications = Application::whereHas('phdOpening', function ($query) use ($user_id) {
+                $query->where('faculty_id', $user_id);
+            })->get();
+        }
+
         return view('applications.index', compact('applications'));
     }
 
@@ -46,7 +63,7 @@ class ApplicationController extends Controller
             return redirect()->back()->with('success', 'Application accepted.');
         }
 
-        return redirect()->back()->with('error', 'Unauthorized.');
+        return redirect('applications.index')->back()->with('error', 'Unauthorized.');
     }
 
     public function reject($id)
@@ -58,6 +75,6 @@ class ApplicationController extends Controller
             return redirect()->back()->with('success', 'Application rejected.');
         }
 
-        return redirect()->back()->with('error', 'Unauthorized.');
+        return redirect('applications.index')->back()->with('error', 'Unauthorized.');
     }
 }

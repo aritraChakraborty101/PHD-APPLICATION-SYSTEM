@@ -8,10 +8,14 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('phd_openings.index')" :active="request()->routeIs('phd_openings.index')">
+                            {{ __('Opening') }}
+                        </x-nav-link>
                     @if (Auth::user()->is_student)
                         <x-nav-link :href="route('applicants.create')" :active="request()->routeIs('applicants.create')">
                             {{ __('Create Applicant') }}
                         </x-nav-link>
+                        
                         <!-- Check if the user has already created an applicant -->
                         <!--NEW LINE ADDED -->
                         @if (!Auth::user()->applicants->isEmpty())
@@ -27,6 +31,9 @@
                     @if (!Auth::user()->is_student)
                         <x-nav-link :href="route('faculties.create')" :active="request()->routeIs('faculties.create')">
                             {{ __('Create Faculty') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('phd_openings.create')" :active="request()->routeIs('phd_openings.create')">
+                            {{ __('Create PHD opening') }}
                         </x-nav-link>
                         <!-- Check if the user has already created a faculty entry -->
                         @if (!Auth::user()->faculties->isEmpty())
@@ -67,7 +74,9 @@
                         <x-dropdown-link :href="route('faculties.index')">
                                 {{ __('Show Faculties') }}
                         </x-dropdown-link>
-
+                        <x-dropdown-link :href="route('applications.index')">
+                                {{ __('Show Applications') }}
+                        </x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
