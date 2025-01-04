@@ -20,6 +20,8 @@
                                 <th class="w-1/3 px-4 py-2">PhD Opening</th>
                                 <th class="w-1/3 px-4 py-2">Status</th>
                                 <th class="w-1/3 px-4 py-2">Actions</th>
+                                <th class="w-1/3 px-4 py-2">Info</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -30,6 +32,11 @@
                                     <td class="border px-4 py-2">
                                         <a href="{{ route('applications.show', $application->id) }}" class="text-blue-500 hover:text-blue-700">View</a>
                                     </td>
+                                    @if ($application->status == 'accepted')
+                                        <td class="border px-4 py-2">
+                                            <a href="{{ route('chat.index', $application->phd_opening_id) }}" class="text-blue-500 hover:text-blue-700">Chat</a>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
@@ -73,6 +80,11 @@
                                                 <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">Reject</button>
                                             </form>
 
+                                        @endif
+                                        @if ($application->status == 'accepted')
+                                            <td class="border px-4 py-2">
+                                                <a href="{{ route('chat.index', $application->user_id) }}" class="text-blue-500 hover:text-blue-700">Chat</a>
+                                            </td>
                                         @endif
                                     </td>
                                     <td class="border px-4 py-2">

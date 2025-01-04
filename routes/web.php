@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\applicantcontroller;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\ApplicationController;
@@ -116,5 +117,11 @@ Route::middleware('auth')->group(function () {
     Route::put('applications/{id}/accept', [ApplicationController::class, 'accept'])->name('applications.accept');
     Route::put('applications/{id}/reject', [ApplicationController::class, 'reject'])->name('applications.reject');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('chat/{user}', [ChatController::class, 'index'])->name('chat.index');
+    Route::post('chat/{user}', [ChatController::class, 'send'])->name('chat.send');
+});
+
 
 
