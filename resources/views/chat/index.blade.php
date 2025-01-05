@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -11,7 +10,8 @@
             <h2 class="text-2xl font-bold text-gray-700">Chat with {{ $user->name }}</h2>
         </div>
 
-        <div class="p-6 space-y-4 h-96 overflow-y-auto">
+        <!-- Chat Messages -->
+        <div id="chat-container" class="p-6 space-y-4 h-96 overflow-y-auto">
             @foreach ($messages as $message)
                 <div class="flex {{ $message->sender_id === Auth::id() ? 'justify-end' : 'justify-start' }}">
                     <div class="{{ $message->sender_id === Auth::id() ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800' }} max-w-xs p-4 rounded-lg shadow">
@@ -24,6 +24,7 @@
             @endforeach
         </div>
 
+        <!-- Message Form -->
         <div class="p-6 bg-gray-100 border-t border-gray-200">
             <form action="{{ route('chat.send', $user->id) }}" method="POST" class="flex space-x-4">
                 @csrf
@@ -36,4 +37,12 @@
             </form>
         </div>
     </div>
+
+    <!-- Scroll-to-Bottom Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatContainer = document.getElementById('chat-container');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        });
+    </script>
 </x-app-layout>

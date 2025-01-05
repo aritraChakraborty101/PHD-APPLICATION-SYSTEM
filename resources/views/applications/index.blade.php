@@ -29,14 +29,15 @@
                                 <tr>
                                     <td class="border px-4 py-2">{{ $application->phdOpening->title }}</td>
                                     <td class="border px-4 py-2">{{ $application->status }}</td>
-                                    <td class="border px-4 py-2">
-                                        <a href="{{ route('applications.show', $application->id) }}" class="text-blue-500 hover:text-blue-700">View</a>
-                                    </td>
+                                    
                                     @if ($application->status == 'accepted')
                                         <td class="border px-4 py-2">
                                             <a href="{{ route('chat.index', $application->phd_opening_id) }}" class="text-blue-500 hover:text-blue-700">Chat</a>
                                         </td>
                                     @endif
+                                    <td class="border px-4 py-2">
+                                        <a href="{{ route('applications.show', $application->id) }}" class="text-blue-500 hover:text-blue-700">View</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -82,9 +83,7 @@
 
                                         @endif
                                         @if ($application->status == 'accepted')
-                                            <td class="border px-4 py-2">
-                                                <a href="{{ route('chat.index', $application->user_id) }}" class="text-blue-500 hover:text-blue-700">Chat</a>
-                                            </td>
+                                            <a href="{{ route('chat.index', $application->user_id) }}" class="text-blue-500 hover:text-blue-700">Chat</a>
                                         @endif
                                     </td>
                                     <td class="border px-4 py-2">
